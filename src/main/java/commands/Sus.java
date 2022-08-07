@@ -1,6 +1,7 @@
 package commands;
 
 import commands.MongoDB.MongoDBConnector;
+import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -15,11 +16,12 @@ import java.util.Random;
 
 public class Sus extends ListenerAdapter {
     Random random = new Random();
+    Dotenv dotenv = Dotenv.configure().load();
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        if(event.getName().equals("bitch")){
+        if(event.getName().equals(dotenv.get("SUS"))){
             event.deferReply().queue();
-            event.getHook().sendMessage("You just got a bitch, Enjoy :sunglasses:").queue();
+            event.getHook().sendMessage(dotenv.get("SUS_MESSAGE")).queue();
             try {
                 MongoDBConnector.update(event.getUser().getId());
             } catch (SQLException e) {
@@ -33,7 +35,7 @@ public class Sus extends ListenerAdapter {
         }
         else if(event.getName().equals("clear")){
             List<Role> r = event.getMember().getRoles();
-            if(r.contains(event.getGuild().getRoleById("875653429752651776"))){
+            if(r.contains(event.getGuild().getRoleById(dotenv.get("GOD")))){
                 List<Message> l = event.getChannel().getHistory().retrievePast(20).complete();
                 event.reply("Done sir").queue();
                 event.getChannel().asTextChannel().deleteMessages(l).queue();
@@ -44,7 +46,7 @@ public class Sus extends ListenerAdapter {
             }
         }
 
-        else if(event.getName().equals("bitchcount")){
+        else if(event.getName().equals(dotenv.get("SUS_COUNT"))){
             try {
                 MongoDBConnector.see(event.getUser().getId(),event);
             } catch (SQLException e) {
