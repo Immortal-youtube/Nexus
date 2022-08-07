@@ -31,10 +31,11 @@ public class main {
         jda.addEventListener(new Msg());
         jda.addEventListener(new Role());
         jda.addEventListener(new Sus());
-        jda.upsertCommand("bitch","want the ladies?").queue();
+
+        jda.upsertCommand(dotenv.get("SUS"),"Sus").queue();
         jda.upsertCommand("invite","Wanna invite someone?").queue();
         jda.upsertCommand("clear","Clears first 20 messages").queue();
-        jda.upsertCommand("bitchcount","See the amount of bitches you got").queue();
+        jda.upsertCommand(dotenv.get("SUS_COUNT"),"See the Sus amount").queue();
         jda.upsertCommand("rps","rock,paper,scissor anyone? ").addOption(OptionType.STRING,"name","enter your option",true).queue();
         jda.upsertCommand("mute","mute a player").addOption(OptionType.USER,"user","option pls",true).queue();
         jda.upsertCommand("unmute","unmute a user").addOption(OptionType.USER,"user","option pls",true).queue();
