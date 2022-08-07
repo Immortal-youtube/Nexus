@@ -2,7 +2,7 @@ import commands.Role;
 import commands.Sus;
 import io.github.cdimascio.dotenv.Dotenv;
 import listener.JoinAndLeave;
-import listener.Msg;
+import listener.SusFile;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -28,7 +28,7 @@ public class main {
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .build().awaitReady();
         jda.addEventListener(new JoinAndLeave());
-        jda.addEventListener(new Msg());
+        jda.addEventListener(new SusFile());
         jda.addEventListener(new Role());
         jda.addEventListener(new Sus());
 
