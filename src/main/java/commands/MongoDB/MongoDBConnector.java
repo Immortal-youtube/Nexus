@@ -14,10 +14,9 @@ import java.sql.*;
 
 
 public class MongoDBConnector {
-    static Dotenv dotenv = Dotenv.load();
     public static void add(String number) throws SQLException {
-        String uri = dotenv.get("MONGO_URL");
-        MongoClientURI clientURI = new MongoClientURI(uri);
+
+        MongoClientURI clientURI = new MongoClientURI(System.getenv("MONGO_URL"));
         MongoClient mongoClient = new MongoClient(clientURI);
         MongoDatabase database = mongoClient.getDatabase("Score");
         MongoCollection collection = database.getCollection("test");
@@ -32,8 +31,7 @@ public class MongoDBConnector {
 
     }
     public static void see(String number, SlashCommandInteractionEvent event) throws SQLException {
-        String uri = dotenv.get("MONGO_URL");
-        MongoClientURI clientURI = new MongoClientURI(uri);
+        MongoClientURI clientURI = new MongoClientURI(System.getenv("MONGO_URL"));
         MongoClient mongoClient = new MongoClient(clientURI);
         MongoDatabase database = mongoClient.getDatabase("Score");
         MongoCollection collection = database.getCollection("test");
@@ -44,8 +42,7 @@ public class MongoDBConnector {
     }
 
     public static void update(String number) throws SQLException {
-        String uri = dotenv.get("MONGO_URL");
-        MongoClientURI clientURI = new MongoClientURI(uri);
+        MongoClientURI clientURI = new MongoClientURI(System.getenv("MONGO_URL"));
         MongoClient mongoClient = new MongoClient(clientURI);
         MongoDatabase database = mongoClient.getDatabase("Score");
         MongoCollection collection = database.getCollection("test");

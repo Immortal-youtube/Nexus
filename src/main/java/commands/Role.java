@@ -12,11 +12,10 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.text.html.Option;
 
 public class Role extends ListenerAdapter {
-    Dotenv dotenv = Dotenv.load();
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         if(event.getName().equals("mute")) {
-            if(!event.getMember().getRoles().contains(event.getGuild().getRoleById(dotenv.get("GOD")))) {
+            if(!event.getMember().getRoles().contains(event.getGuild().getRoleById(System.getenv("GOD")))) {
                 event.deferReply().queue();
                 event.getHook().sendMessage("You don't have the necessary permissions").queue();
                 return;
@@ -29,11 +28,11 @@ public class Role extends ListenerAdapter {
             }else{
                 User user = map.getAsUser();
                 Member member = event.getGuild().getMember(user);
-                if(member.getRoles().contains(event.getGuild().getRoleById(dotenv.get("MUTE")))){
+                if(member.getRoles().contains(event.getGuild().getRoleById(System.getenv("MUTE")))){
                     event.deferReply(true).queue();
                     event.getHook().sendMessage("This user is already muted").queue();
                 }else{
-                    event.getGuild().addRoleToMember(member, event.getGuild().getRoleById(dotenv.get("MUTE"))).queue();
+                    event.getGuild().addRoleToMember(member, event.getGuild().getRoleById(System.getenv("MUTE"))).queue();
                     event.deferReply(true).queue();
                     event.getHook().sendMessage("Muted " + user.getAsMention()).queue();
                 }
@@ -41,7 +40,7 @@ public class Role extends ListenerAdapter {
 
         }
         else if(event.getName().equals("unmute")){
-            if(!event.getMember().getRoles().contains(event.getGuild().getRoleById(dotenv.get("GOD")))) {
+            if(!event.getMember().getRoles().contains(event.getGuild().getRoleById(System.getenv("GOD")))) {
                 event.deferReply(true).queue();
                 event.getHook().sendMessage("You don't have the necessary permissions").queue();
                 return;
@@ -54,12 +53,12 @@ public class Role extends ListenerAdapter {
             }else {
                 User user = map.getAsUser();
                 Member member = event.getGuild().getMember(user);
-                if(event.getMember().getRoles().contains(event.getGuild().getRoleById(dotenv.get("MUTE")))){
+                if(event.getMember().getRoles().contains(event.getGuild().getRoleById(System.getenv("MUTE")))){
                     event.deferReply(true).queue();
                     event.getHook().sendMessage("This user is not muted").queue();
                     return;
                 }else{
-                    event.getGuild().removeRoleFromMember(member, event.getGuild().getRoleById(dotenv.get("MUTE"))).queue();
+                    event.getGuild().removeRoleFromMember(member, event.getGuild().getRoleById(System.getenv("MUTE"))).queue();
                     event.deferReply(true).queue();
                     event.getHook().sendMessage("Unmuted " + user.getAsMention()).queue();
                 }

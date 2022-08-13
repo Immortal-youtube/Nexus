@@ -11,14 +11,14 @@ import org.jetbrains.annotations.NotNull;
 import java.sql.SQLException;
 
 public class JoinAndLeave extends ListenerAdapter {
-    Dotenv dotenv = Dotenv.configure().load();
+
 
     @Override
     public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
         String name = event.getMember().getAsMention();
-        TextChannel channel = event.getJDA().getTextChannelById(dotenv.get("WELCOME_CHAT"));
+        TextChannel channel = event.getJDA().getTextChannelById(System.getenv("WELCOME"));
         channel.sendMessage("Welcome " + name).queue();
-        event.getGuild().addRoleToMember(event.getMember(),event.getGuild().getRoleById(dotenv.get("MEMBER"))).complete();
+        event.getGuild().addRoleToMember(event.getMember(),event.getGuild().getRoleById(System.getenv("MEMBER"))).complete();
         try {
             MongoDBConnector.add(event.getUser().getId());
         } catch (SQLException e) {
@@ -30,7 +30,7 @@ public class JoinAndLeave extends ListenerAdapter {
     @Override
     public void onGuildMemberRemove(@NotNull GuildMemberRemoveEvent event) {
         String name = event.getUser().getAsTag();
-        TextChannel channel = event.getJDA().getTextChannelById(dotenv.get("FAREWELL_CHAT"));
+        TextChannel channel = event.getJDA().getTextChannelById(System.getenv("FAREWELL"));
         System.out.println(name + " left");
         channel.sendMessage("Goodbye " + name).queue();
     }

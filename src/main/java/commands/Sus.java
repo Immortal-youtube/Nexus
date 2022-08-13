@@ -16,12 +16,12 @@ import java.util.Random;
 
 public class Sus extends ListenerAdapter {
     Random random = new Random();
-    Dotenv dotenv = Dotenv.configure().load();
+
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        if(event.getName().equals(dotenv.get("SUS"))){
+        if(event.getName().equals(System.getenv("SUS"))){
             event.deferReply().queue();
-            event.getHook().sendMessage(dotenv.get("SUS_MESSAGE")).queue();
+            event.getHook().sendMessage(System.getenv("SUS_MESSAGE")).queue();
             try {
                 MongoDBConnector.update(event.getUser().getId());
             } catch (SQLException e) {
@@ -35,7 +35,7 @@ public class Sus extends ListenerAdapter {
         }
         else if(event.getName().equals("clear")){
             List<Role> r = event.getMember().getRoles();
-            if(r.contains(event.getGuild().getRoleById(dotenv.get("GOD")))){
+            if(r.contains(event.getGuild().getRoleById(System.getenv("GOD")))){
                 List<Message> l = event.getChannel().getHistory().retrievePast(20).complete();
                 event.reply("Done sir").queue();
                 event.getChannel().asTextChannel().deleteMessages(l).queue();
@@ -46,7 +46,7 @@ public class Sus extends ListenerAdapter {
             }
         }
 
-        else if(event.getName().equals(dotenv.get("SUS_COUNT"))){
+        else if(event.getName().equals(System.getenv("SUS_COUNT"))){
             try {
                 MongoDBConnector.see(event.getUser().getId(),event);
             } catch (SQLException e) {

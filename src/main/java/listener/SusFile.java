@@ -11,10 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SusFile extends ListenerAdapter {
-    Dotenv dotenv = Dotenv.configure().load();
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        List<String> choices = Arrays.stream(dotenv.get("SUS_ARRAY").split(",")).toList();
+        List<String> choices = Arrays.stream(System.getenv("SUS_ARRAY").split(",")).toList();
         String msg = event.getMessage().getContentRaw();
         TextChannel channel = event.getChannel().asTextChannel();
         for(String choice : choices){
