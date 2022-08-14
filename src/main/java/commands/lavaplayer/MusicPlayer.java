@@ -38,6 +38,7 @@ public class MusicPlayer extends ListenerAdapter {
         if(event.getName().equals("stop")){
             if(event.getGuild().getAudioManager().isConnected()){
                 PlayerManager.getINSTANCE().getGuildMusicManager(event.getGuild()).scheduler.stopTrack();
+                PlayerManager.getINSTANCE().getGuildMusicManager(event.getGuild()).scheduler.clearQueue();
                 event.getGuild().getAudioManager().closeAudioConnection();
                 event.deferReply().queue();
                 event.getHook().sendMessage("Stopped the music").queue();
