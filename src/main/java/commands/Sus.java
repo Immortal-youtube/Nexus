@@ -30,8 +30,7 @@ public class Sus extends ListenerAdapter {
         }
         else if(event.getName().equals("invite")){
             event.deferReply().queue();
-            TextChannel channel = (TextChannel) event.getChannel();
-            event.getHook().sendMessage("If you wish to invite someone: " + channel.createInvite().complete().getUrl()).queue();
+            event.getHook().sendMessage("If you wish to invite someone: " + event.getChannel().asTextChannel().createInvite().complete().getUrl()).queue();
         }
         else if(event.getName().equals("clear")){
             List<Role> r = event.getMember().getRoles();

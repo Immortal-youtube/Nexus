@@ -1,9 +1,11 @@
 import commands.Jokes;
 import commands.Role;
+import commands.Socials;
 import commands.Sus;
 import commands.lavaplayer.MusicPlayer;
-import io.github.cdimascio.dotenv.Dotenv;
 import listener.JoinAndLeave;
+import commands.ProjectIdeas;
+import listener.SuggestionListener;
 import listener.SusFile;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -37,6 +39,9 @@ public class main{
         jda.addEventListener(new MusicPlayer());
         jda.addEventListener(new Sus());
         jda.addEventListener(new Jokes());
+        jda.addEventListener(new Socials());
+        jda.addEventListener(new ProjectIdeas());
+        jda.addEventListener(new SuggestionListener());
 
         jda.upsertCommand(System.getenv("SUS"),"Sus").queue();
         jda.upsertCommand("invite","Wanna invite someone?").queue();
@@ -48,6 +53,9 @@ public class main{
         jda.upsertCommand("play","play a song").addOption(OptionType.STRING,"link","option pls",true).queue();
         jda.upsertCommand("stop","stop the music").queue();
         jda.upsertCommand("joke","tell a joke").queue();
+        jda.upsertCommand("github","github link").queue();
+        jda.upsertCommand("bot","bot code").queue();
+        jda.upsertCommand("idea","project idea").addOption(OptionType.STRING,"idea","option pls",true).queue();
     }
 
 

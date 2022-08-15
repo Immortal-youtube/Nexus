@@ -1,5 +1,6 @@
 package listener;
 
+import Utils.Welcome;
 import commands.MongoDB.MongoDBConnector;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -21,6 +22,7 @@ public class JoinAndLeave extends ListenerAdapter {
         event.getGuild().addRoleToMember(event.getMember(),event.getGuild().getRoleById(System.getenv("MEMBER"))).complete();
         try {
             MongoDBConnector.add(event.getUser().getId());
+            Welcome.onJoin(event);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
