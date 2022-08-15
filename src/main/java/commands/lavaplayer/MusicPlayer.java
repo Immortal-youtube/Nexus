@@ -11,9 +11,13 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.managers.AudioManager;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 public class MusicPlayer extends ListenerAdapter {
 
     TextChannel channel;
+    String link;
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         if(event.getName().equals("play")){
@@ -26,13 +30,29 @@ public class MusicPlayer extends ListenerAdapter {
                 event.getHook().sendMessage("I don't have permission to connect to a voice channel.").queue();
             }else{
                 OptionMapping mapping = event.getOption("link");
-                String link = mapping.getAsString();
-                final AudioManager manager = event.getGuild().getAudioManager();
-                final AudioChannel channel = event.getMember().getVoiceState().getChannel();
-                PlayerManager.getINSTANCE().loadAndPlay((TextChannel) event.getChannel(),link);
-                manager.openAudioConnection(channel);
-                event.deferReply().queue();
-                event.getHook().sendMessage("Now playing " + link).queue();
+                link = mapping.getAsString();
+                if(!isUrl(link)) {
+                    if(PlayerManager.getINSTANCE().isPlaying()) {
+                        PlayerManager.getINSTANCE().clear();
+                    }
+                    link = "ytsearch:" + link + " official audio";
+                    PlayerManager.getINSTANCE().loadAndPlay((TextChannel) event.getChannel(),link);
+                    final AudioManager manager = event.getGuild().getAudioManager();
+                    final AudioChannel channel = event.getMember().getVoiceState().getChannel();
+                    manager.openAudioConnection(channel);
+                    event.deferReply().queue();
+                    event.getHook().sendMessage("Now playing " + link).queue();
+                }else{
+                    if(PlayerManager.getINSTANCE().isPlaying()){
+                        PlayerManager.getINSTANCE().clear();;
+                    }
+                    final AudioManager manager = event.getGuild().getAudioManager();
+                    final AudioChannel channel = event.getMember().getVoiceState().getChannel();
+                    PlayerManager.getINSTANCE().loadAndPlay((TextChannel) event.getChannel(),link);
+                    manager.openAudioConnection(channel);
+                    event.deferReply().queue();
+                    event.getHook().sendMessage("Now playing " + link).queue();
+                }
             }
         }
         if(event.getName().equals("stop")){
@@ -45,6 +65,15 @@ public class MusicPlayer extends ListenerAdapter {
             }else{
                 event.getHook().sendMessage("I am not playing anything").queue();
             }
+        }
+    }
+
+    public boolean isUrl(String url){
+        try{
+            new URI(url);
+            return true;
+        }catch (URISyntaxException e){
+            return false;
         }
     }
 }

@@ -77,4 +77,17 @@ public class PlayerManager {
     public GuildMusicManager getGuildMusicManager(Guild guild) {
         return this.musicManager.get(guild.getIdLong());
     }
+
+    public boolean isPlaying(){
+        if(!musicManager.isEmpty()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public void clear(){
+        this.musicManager.clear();
+    }
 }

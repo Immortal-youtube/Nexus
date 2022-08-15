@@ -1,3 +1,4 @@
+import commands.Jokes;
 import commands.Role;
 import commands.Sus;
 import commands.lavaplayer.MusicPlayer;
@@ -35,6 +36,7 @@ public class main{
         jda.addEventListener(new Role());
         jda.addEventListener(new MusicPlayer());
         jda.addEventListener(new Sus());
+        jda.addEventListener(new Jokes());
 
         jda.upsertCommand(System.getenv("SUS"),"Sus").queue();
         jda.upsertCommand("invite","Wanna invite someone?").queue();
@@ -45,6 +47,7 @@ public class main{
         jda.upsertCommand("unmute","unmute a user").addOption(OptionType.USER,"user","option pls",true).queue();
         jda.upsertCommand("play","play a song").addOption(OptionType.STRING,"link","option pls",true).queue();
         jda.upsertCommand("stop","stop the music").queue();
+        jda.upsertCommand("joke","tell a joke").queue();
     }
 
 
