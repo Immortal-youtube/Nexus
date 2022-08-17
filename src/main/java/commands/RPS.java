@@ -18,9 +18,10 @@ import java.util.Random;
 public class RPS extends ListenerAdapter {
     Random random = new Random();
     String choice;
+
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        if(event.getName().equals("rps")){
+        if (event.getName().equals("rps")) {
             Button rock = Button.primary("rock", Emoji.fromUnicode("\uD83E\uDEA8"));
             Button paper = Button.primary("paper", Emoji.fromUnicode("\uD83E\uDDFB"));
             Button scissors = Button.primary("scissors", Emoji.fromUnicode("✂"));
@@ -38,15 +39,14 @@ public class RPS extends ListenerAdapter {
     public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
         String[] choices = {"rock", "paper", "scissors"};
         choice = choices[random.nextInt(choices.length)];
-        if(event.getButton().getId().equals("rock")){
-            LogicRPS.check(event, "rock",choice);
+        if (event.getButton().getId().equals("rock")) {
+            LogicRPS.check(event, "rock", choice);
+        } else if (event.getButton().getId().equals("paper")) {
+            LogicRPS.check(event, "paper", choice);
+        } else if (event.getButton().getId().equals("scissors")) {
+            LogicRPS.check(event, "scissors", choice);
         }
-        else if(event.getButton().getId().equals("paper")){
-            LogicRPS.check(event, "paper",choice);
-        }
-        else if(event.getButton().getId().equals("scissors")){
-            LogicRPS.check(event, "scissors",choice);
-        }
+
 
     }
 }

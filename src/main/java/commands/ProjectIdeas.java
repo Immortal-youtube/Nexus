@@ -16,13 +16,13 @@ public class ProjectIdeas extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        if(event.getName().equals("idea")){
+        if (event.getName().equals("idea")) {
             OptionMapping mapping = event.getOption("idea");
             String idea = mapping.getAsString();
             EmbedBuilder builder = new EmbedBuilder();
             builder.setTitle(event.getMember().getUser().getName());
             builder.setColor(event.getMember().getColor());
-            builder.addField("Project Idea: ",idea, false);
+            builder.addField("Project Idea: ", idea, false);
             TextChannel channel = event.getGuild().getTextChannelById("1008709592680767498");
             channel.sendMessageEmbeds(builder.build()).queue();
             event.deferReply().queue();

@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -66,14 +67,40 @@ public class MusicPlayer extends ListenerAdapter {
                 event.getHook().sendMessage("I am not playing anything").queue();
             }
         }
+        if(event.getName().equals("pause")){
+            if(event.getGuild().getAudioManager().isConnected()){
+                PlayerManager.getINSTANCE().getGuildMusicManager(event.getGuild()).scheduler.pauseTrack();
+                event.deferReply().queue();
+                event.getHook().sendMessage("Paused the music").queue();
+            }else{
+                event.getHook().sendMessage("I am not playing anything").queue();
+            }
+        }
+        if(event.getName().equals("resume")){
+            if(event.getGuild().getAudioManager().isConnected()){
+                PlayerManager.getINSTANCE().getGuildMusicManager(event.getGuild()).scheduler.resumeTrack();
+                event.deferReply().queue();
+                event.getHook().sendMessage("Resumed the music").queue();
+            }else{
+                event.getHook().sendMessage("I am not playing anything").queue();
+            }
+        }
     }
 
-    public boolean isUrl(String url){
-        try{
+    public boolean isUrl(String url){try{
             new URI(url);
             return true;
         }catch (URISyntaxException e){
             return false;
+        }
+    }
+
+    @Override
+    public void onGuildVoiceLeave(@NotNull GuildVoiceLeaveEvent event) {
+        if(event.getGuild().getAudioManager().getConnectedChannel().getMembers().size() == 1){
+            event.getGuild().getAudioManager().closeAudioConnection();
+            PlayerManager.getINSTANCE().getGuildMusicManager(event.getGuild()).scheduler.stopTrack();
+            PlayerManager.getINSTANCE().getGuildMusicManager(event.getGuild()).scheduler.clearQueue();
         }
     }
 }

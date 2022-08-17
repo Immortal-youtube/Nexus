@@ -14,10 +14,10 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
 
-public class main{
+public class main {
     static String token;
 
-    public static void main(String[] args) throws LoginException, InterruptedException{
+    public static void main(String[] args) throws LoginException, InterruptedException {
         token = System.getenv("TOKEN");
         JDA jda = JDABuilder.createDefault(token)
                 .enableCache(CacheFlag.VOICE_STATE)
@@ -41,19 +41,21 @@ public class main{
         jda.addEventListener(new SuggestionListener());
 
 
-        jda.upsertCommand(System.getenv("SUS"),"Sus").queue();
-        jda.upsertCommand("invite","Wanna invite someone?").queue();
-        jda.upsertCommand("clear","Clears first 20 messages").queue();
-        jda.upsertCommand(System.getenv("SUS_COUNT"),"See the Sus amount").queue();
-        jda.upsertCommand("mute","mute a player").addOption(OptionType.USER,"user","option pls",true).queue();
-        jda.upsertCommand("unmute","unmute a user").addOption(OptionType.USER,"user","option pls",true).queue();
-        jda.upsertCommand("play","play a song").addOption(OptionType.STRING,"link","option pls",true).queue();
-        jda.upsertCommand("stop","stop the music").queue();
-        jda.upsertCommand("joke","tell a joke").queue();
-        jda.upsertCommand("github","github link").queue();
-        jda.upsertCommand("bot","bot code").queue();
-        jda.upsertCommand("idea","project idea").addOption(OptionType.STRING,"idea","option pls",true).queue();
-        jda.upsertCommand("rps","play rock paper scissors").queue();
+        jda.upsertCommand(System.getenv("SUS"), "Sus").queue();
+        jda.upsertCommand("invite", "Wanna invite someone?").queue();
+        jda.upsertCommand("clear", "Clears first 20 messages").queue();
+        jda.upsertCommand(System.getenv("SUS_COUNT"), "See the Sus amount").queue();
+        jda.upsertCommand("mute", "mute a player").addOption(OptionType.USER, "user", "option pls", true).queue();
+        jda.upsertCommand("unmute", "unmute a user").addOption(OptionType.USER, "user", "option pls", true).queue();
+        jda.upsertCommand("play", "play a song").addOption(OptionType.STRING, "link", "option pls", true).queue();
+        jda.upsertCommand("stop", "stop the music").queue();
+        jda.upsertCommand("joke", "tell a joke").queue();
+        jda.upsertCommand("github", "github link").queue();
+        jda.upsertCommand("bot", "bot code").queue();
+        jda.upsertCommand("idea", "project idea").addOption(OptionType.STRING, "idea", "option pls", true).queue();
+        jda.upsertCommand("rps", "play rock paper scissors").queue();
+        jda.upsertCommand("pause","pauses the music").queue();
+        jda.upsertCommand("resume","resumes the music").queue();
     }
 
 
