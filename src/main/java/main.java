@@ -1,6 +1,7 @@
 import commands.*;
 import commands.lavaplayer.MusicPlayer;
 import listener.JoinAndLeave;
+import listener.MessageListener;
 import listener.SuggestionListener;
 import listener.SusFile;
 import net.dv8tion.jda.api.JDA;
@@ -38,6 +39,7 @@ public class main {
         jda.addEventListener(new Socials());
         jda.addEventListener(new ProjectIdeas());
         jda.addEventListener(new RPS());
+        jda.addEventListener(new PollBot());
         jda.addEventListener(new SuggestionListener());
 
 
@@ -56,6 +58,10 @@ public class main {
         jda.upsertCommand("rps", "play rock paper scissors").queue();
         jda.upsertCommand("pause","pauses the music").queue();
         jda.upsertCommand("resume","resumes the music").queue();
+        jda.upsertCommand("poll","host a poll")
+                .addOption(OptionType.STRING, "question", "option pls", true)
+                .addOption(OptionType.STRING, "option1", "option pls", true)
+                .addOption(OptionType.STRING, "option2", "option pls", true).queue();
     }
 
 
