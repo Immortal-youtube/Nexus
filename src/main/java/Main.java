@@ -1,7 +1,6 @@
 import commands.*;
 import commands.lavaplayer.MusicPlayer;
 import listener.JoinAndLeave;
-import listener.MessageListener;
 import listener.SuggestionListener;
 import listener.SusFile;
 import net.dv8tion.jda.api.JDA;
@@ -14,8 +13,9 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
+import java.util.EnumSet;
 
-public class main {
+public class Main {
     static String token;
 
     public static void main(String[] args) throws LoginException, InterruptedException {
@@ -24,10 +24,7 @@ public class main {
                 .enableCache(CacheFlag.VOICE_STATE)
                 .setActivity(Activity.playing("with yo Mama"))
                 .setStatus(OnlineStatus.DO_NOT_DISTURB)
-                .enableIntents(GatewayIntent.GUILD_MEMBERS,
-                        GatewayIntent.MESSAGE_CONTENT,
-                        GatewayIntent.DIRECT_MESSAGES,
-                        GatewayIntent.GUILD_VOICE_STATES)
+                .enableIntents(EnumSet.allOf(GatewayIntent.class))
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .build().awaitReady();
         jda.addEventListener(new JoinAndLeave());

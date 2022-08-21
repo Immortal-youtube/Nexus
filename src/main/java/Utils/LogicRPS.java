@@ -19,6 +19,7 @@ public class LogicRPS {
             user = Emoji.fromUnicode("\uD83E\uDDFB");
         } else if (choiceUser.equals("scissors")) {
             user = Emoji.fromUnicode("✂");
+            
         }
 
         if (choiceBot.equals("rock")) {
