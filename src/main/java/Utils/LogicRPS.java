@@ -10,27 +10,21 @@ public class LogicRPS {
     public static void check(ButtonInteractionEvent event, String choiceUser,String choiceBot) {
         Emoji user = null;
         Emoji bot = null;
-        if (choiceUser.equals("rock")) {
-            user = Emoji.fromUnicode("\uD83E\uDEA8");
-        } else if (choiceUser.equals("paper")) {
-            user = Emoji.fromUnicode("\uD83E\uDDFB");
-        } else if (choiceUser.equals("scissors")) {
-            user = Emoji.fromUnicode("✂");
-            
+        switch (choiceUser) {
+            case "rock" -> user = Emoji.fromUnicode("\uD83E\uDEA8");
+            case "paper" -> user = Emoji.fromUnicode("\uD83E\uDDFB");
+            case "scissors" -> user = Emoji.fromUnicode("✂");
         }
 
-        if (choiceBot.equals("rock")) {
-            bot = Emoji.fromUnicode("\uD83E\uDEA8");
-        } else if (choiceBot.equals("paper")) {
-            bot = Emoji.fromUnicode("\uD83E\uDDFB");
-        } else if (choiceBot.equals("scissors")) {
-            bot = Emoji.fromUnicode("✂");
+        switch (choiceBot) {
+            case "rock" -> bot = Emoji.fromUnicode("\uD83E\uDEA8");
+            case "paper" -> bot = Emoji.fromUnicode("\uD83E\uDDFB");
+            case "scissors" -> bot = Emoji.fromUnicode("✂");
         }
 
 
         String WinOrLose = decide(choiceUser, choiceBot);
-        Message message = new MessageBuilder()
-                .append("You chose " + (user).getFormatted() + " and the bot chose " + (bot).getFormatted() + " so you " + WinOrLose)
+        Message message = new MessageBuilder().append("You chose ").append((user).getFormatted()).append(" and the bot chose ").append((bot).getFormatted()).append(" so you ").append(WinOrLose)
                 .build();
         event.deferReply().queue();
         event.getHook().sendMessage(message).queue();
