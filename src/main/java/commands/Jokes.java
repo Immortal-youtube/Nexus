@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 import java.io.IOException;
 
+
 public class Jokes extends ListenerAdapter {
     String str;
     @Override

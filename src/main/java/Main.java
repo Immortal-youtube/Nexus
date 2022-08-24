@@ -7,18 +7,21 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import org.reflections.Reflections;
 
 import javax.security.auth.login.LoginException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.EnumSet;
 
 public class Main {
     static String token;
 
-    public static void main(String[] args) throws LoginException, InterruptedException {
+    public static void main(String[] args) throws LoginException, InterruptedException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         token = System.getenv("TOKEN");
         JDA jda = JDABuilder.createDefault(token)
                 .enableCache(CacheFlag.VOICE_STATE)
@@ -27,6 +30,19 @@ public class Main {
                 .enableIntents(EnumSet.allOf(GatewayIntent.class))
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .build().awaitReady();
+
+        String packageName = Main.class.getPackage().getName();
+        for(Class<?> clazz: new Reflections(packageName + ".commands").getSubTypesOf(ListenerAdapter.class)){
+            ListenerAdapter adapter = (ListenerAdapter) clazz.getDeclaredConstructor().newInstance();
+            jda.addEventListener(adapter);
+        }
+
+        String packageNameListener = Main.class.getPackage().getName();
+        for(Class<?> clazz: new Reflections(packageNameListener + ".").getSubTypesOf(ListenerAdapter.class)){
+            ListenerAdapter adapter = (ListenerAdapter) clazz.getDeclaredConstructor().newInstance();
+            jda.addEventListener(adapter);
+        }
+
         jda.addEventListener(new JoinAndLeave());
         jda.addEventListener(new SusFile());
         jda.addEventListener(new Role());
