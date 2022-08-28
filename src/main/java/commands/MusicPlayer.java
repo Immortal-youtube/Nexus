@@ -1,4 +1,4 @@
-package commands.lavaplayer;
+package commands;
 
 import commands.lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.Permission;

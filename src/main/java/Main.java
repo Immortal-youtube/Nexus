@@ -1,5 +1,5 @@
 import commands.*;
-import commands.lavaplayer.MusicPlayer;
+import commands.MusicPlayer;
 import listener.JoinAndLeave;
 import listener.SuggestionListener;
 import listener.SusFile;
@@ -30,18 +30,6 @@ public class Main {
                 .enableIntents(EnumSet.allOf(GatewayIntent.class))
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .build().awaitReady();
-
-        String packageName = Main.class.getPackage().getName();
-        for(Class<?> clazz: new Reflections(packageName + ".commands").getSubTypesOf(ListenerAdapter.class)){
-            ListenerAdapter adapter = (ListenerAdapter) clazz.getDeclaredConstructor().newInstance();
-            jda.addEventListener(adapter);
-        }
-
-        String packageNameListener = Main.class.getPackage().getName();
-        for(Class<?> clazz: new Reflections(packageNameListener + ".").getSubTypesOf(ListenerAdapter.class)){
-            ListenerAdapter adapter = (ListenerAdapter) clazz.getDeclaredConstructor().newInstance();
-            jda.addEventListener(adapter);
-        }
 
         jda.addEventListener(new JoinAndLeave());
         jda.addEventListener(new SusFile());

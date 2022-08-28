@@ -18,7 +18,7 @@ public class JoinAndLeave extends ListenerAdapter {
     @Override
     public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
         String name = event.getMember().getAsMention();
-        TextChannel channel = event.getJDA().getTextChannelById(System.getenv("WELCOME"));
+        TextChannel channel = event.getJDA().getTextChannelById(System.getenv("WELCOME_CHAT"));
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle("Welcome " + event.getMember().getEffectiveName());
         builder.setThumbnail(event.getUser().getAvatarUrl());
@@ -37,7 +37,7 @@ public class JoinAndLeave extends ListenerAdapter {
     @Override
     public void onGuildMemberRemove(@NotNull GuildMemberRemoveEvent event) {
         String name = event.getUser().getAsTag();
-        TextChannel channel = event.getJDA().getTextChannelById(System.getenv("FAREWELL"));
+        TextChannel channel = event.getJDA().getTextChannelById(System.getenv("FAREWELL_CHAT"));
         System.out.println(name + " left");
         channel.sendMessage("Goodbye " + name).queue();
     }
