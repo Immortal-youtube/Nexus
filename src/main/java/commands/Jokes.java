@@ -26,6 +26,7 @@ public class Jokes extends ListenerAdapter {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("Joke");
             embedBuilder.addField(joke, "", true);
+
             embedBuilder.setColor(Color.GREEN);
             embedBuilder.setThumbnail("https://media.gq.com/photos/5720e7496a2af99a11a1dc8a/16:9/w_2560%2Cc_limit/Obama-Laugh.jpg");
             event.deferReply().queue();

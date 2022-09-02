@@ -63,6 +63,7 @@ public class Main {
                 .addOption(OptionType.STRING, "question", "option pls", true)
                 .addOption(OptionType.STRING, "option1", "option pls", true)
                 .addOption(OptionType.STRING, "option2", "option pls", true).queue();
+        jda.updateCommands().queue();
     }
 
 
