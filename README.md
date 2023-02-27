@@ -7,3 +7,4 @@
 #### if you have any suggestions or any feedback on the bot you can contact me on discord through the server
 :fire: :fire: :clinking_glasses: :e-mail:
 
+#### SNEAK PEEK: This is the old code, a better server coming soon!!!
