@@ -22,7 +22,7 @@ public class Main {
     static String token;
 
     public static void main(String[] args) throws LoginException, InterruptedException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        token = System.getenv("TOKEN");
+        token = "ODc0OTg5ODA5MjEzNTI2MDg2.G-jrWw.gL0P46vXuLa2lRUQ6gA0Gig_LdzgNOsxPqN6ss";
         JDA jda = JDABuilder.createDefault(token)
                 .enableCache(CacheFlag.VOICE_STATE)
                 .setActivity(Activity.playing("with yo Mama"))
@@ -44,10 +44,10 @@ public class Main {
         jda.addEventListener(new SuggestionListener());
 
 
-        jda.upsertCommand(System.getenv("SUS"), "Sus").queue();
+//        jda.upsertCommand(System.getenv("SUS"), "Sus").queue();
         jda.upsertCommand("invite", "Wanna invite someone?").queue();
         jda.upsertCommand("clear", "Clears first 20 messages").queue();
-        jda.upsertCommand(System.getenv("SUS_COUNT"), "See the Sus amount").queue();
+//        jda.upsertCommand(System.getenv("SUS_COUNT"), "See the Sus amount").queue();
         jda.upsertCommand("mute", "mute a player").addOption(OptionType.USER, "user", "option pls", true).queue();
         jda.upsertCommand("unmute", "unmute a user").addOption(OptionType.USER, "user", "option pls", true).queue();
         jda.upsertCommand("play", "play a song").addOption(OptionType.STRING, "link", "option pls", true).queue();
