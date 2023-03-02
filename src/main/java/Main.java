@@ -22,7 +22,7 @@ public class Main {
     static String token;
 
     public static void main(String[] args) throws LoginException, InterruptedException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        token = "ODc0OTg5ODA5MjEzNTI2MDg2.G-jrWw.gL0P46vXuLa2lRUQ6gA0Gig_LdzgNOsxPqN6ss";
+        token = "token";
         JDA jda = JDABuilder.createDefault(token)
                 .enableCache(CacheFlag.VOICE_STATE)
                 .setActivity(Activity.playing("with yo Mama"))
