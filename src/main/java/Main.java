@@ -2,7 +2,7 @@ import commands.*;
 import commands.MusicPlayer;
 import listener.JoinAndLeave;
 import listener.SuggestionListener;
-import listener.SusFile;
+
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -32,7 +32,6 @@ public class Main {
                 .build().awaitReady();
 
         jda.addEventListener(new JoinAndLeave());
-        jda.addEventListener(new SusFile());
         jda.addEventListener(new Role());
         jda.addEventListener(new MusicPlayer());
         jda.addEventListener(new Sus());

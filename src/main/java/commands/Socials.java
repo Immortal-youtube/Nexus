@@ -14,7 +14,7 @@ public class Socials extends ListenerAdapter {
         }
         if(event.getName().equals("bot")){
             event.deferReply().queue();
-            event.getHook().sendMessage("https://github.com/Immortal-youtube/Nexus-BOT").queue();
+            event.getHook().sendMessage("https://github.com/Immortal-youtube/NexusV2").queue();
         }
     }
 }
